@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+import time
+import itertools
+
 #################
 # Part 1
 #################
@@ -48,21 +51,14 @@ def part1(myinput: str) -> None:
 # Part 2
 ###############
 
-
 def find_repeatedfreq(sequence: [], f=0) -> int:
-    freqs = [f]
-    i = 0  # sequence index
-    while True:
-        f = freqs[-1] + sequence[i]
+    freqs = set([f])
+    for df in itertools.cycle(sequence):
+        f = f + df
         if f not in freqs:
-            freqs.append(f)
+            freqs.add(f)
         else:
             return f
-        if i == len(sequence) - 1:
-            i = 0
-        else:
-            i = i + 1
-
 
 def part2test() -> None:
     # test input
@@ -95,8 +91,13 @@ if __name__ == "__main__":
 
     print("Part 1:")
     part1test()
+    t0 = time.time()
     part1(MYINPUT)
-
+    print("time: " + str(time.time() - t0))
+  
+    
     print("Part 2:")
     part2test()
+    t0 = time.time()
     part2(MYINPUT)
+    print("time: " + str(time.time() - t0))
