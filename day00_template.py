@@ -36,8 +36,8 @@ def part2(myinput: str) -> None:
 if __name__ == "__main__":
 
     # my input
-    with open('data/day2') as f:
-        MYINPUT = f.read()
+    with open('data/day0') as f:
+        MYINPUT = f.readlines()
 
     print("Part 1:")
     part1test()
