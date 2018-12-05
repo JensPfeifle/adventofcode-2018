@@ -2,6 +2,8 @@
 
 import time
 
+# Regex Snippet
+#map(lambda s: map(int, re.findall(r'-?\d+', s)), data)
 
 #################
 # Part 1

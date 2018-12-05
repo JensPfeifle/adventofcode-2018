@@ -156,7 +156,76 @@ def intact_claims(claims: [str]) -> [int]:
     return intact
 ```
 
-Once I realized I could go through each claim and check if any others overlap it (i.e. fabric[i,j] > 1) instead of comparing the areas of each claim with all others, everything got much simpler. The final code is simplified further.
+Once I realized I could go through each claim and check if any others overlap it (i.e. fabric[i,j] > 1) instead of comparing the areas of each claim with all others, everything got much simpler. 
 
 Day 4
 ======
+
+Spent waaaayyy to much time making complicated data structures which ended up not working. Pandas was also not the right approach here.At least I realized the sorting could be done naively, since the datetimes are in ISO format, which is nice. 
+
+After a glance at some of the results on the AoC subreddit. I tried again with one defaultdict for the total time spent sleeping, and another for the most asleep minute.
+Once the records were ordered, the guard ID was always known before the sleep/wake times were parsed, so I could simply fill the dicts and do max() and most_common() at the end.
+
+The end result:
+```python
+def parse_records():
+
+    total_sleeping = defaultdict(int)
+    minutes_counter = defaultdict(Counter)
+
+    # my input
+    with open('data/day4') as f:
+        records = f.read().splitlines()
+
+        records.sort()
+        fall_asleep_minute = 0
+
+        for record in records:
+            splitline = record.split()
+            date = splitline[0][1:] 
+            time = splitline[1][:-1]
+            
+            if 'begins shift' in record:
+                guard = int(record.split()[3][1:])
+
+            if 'falls asleep' in record:  # can asssume the hour is 00
+
+                H = int(time.split(":")[0])
+                M = int(time.split(":")[1])
+                assert H == 0
+                fall_asleep_minute = M
+
+            if 'wakes up' in record:
+                H = int(time.split(":")[0])
+                M = int(time.split(":")[1])
+                assert H == 0
+
+                time_asleep = M - fall_asleep_minute
+                assert time_asleep > 0
+                #print("{} asleep from {} to {}".format(guard, fall_asleep_minute,M))
+                cnt = Counter([i for i in range(fall_asleep_minute,M)])
+                minutes_counter[guard].update(cnt)
+                oldtotal = total_sleeping[guard]
+                total_sleeping[guard] = oldtotal + time_asleep
+    
+    return total_sleeping, minutes_counter
+```
+
+All in all, should have sorted first and then done some thinking instead of plowing ahead..
+
+
+Day 5
+======
+
+Not a huge challenge conceptually. Used list comprehension to create a list of reacting combinations:
+```python
+lc = [chr(i) for i in range(97, 97+26)]
+uc = [c.upper() for c in lc]
+reactants = [r[0] + r[1] for r in zip(lc, uc)]
+reversedreactants = [r[::-1] for r in reactants]
+```
+
+and then simply replaced them in the polymer until its length remained constant. I was stuck for a bit with a dumb off by one error because I forgot to strip() the input!
+
+For part 2 I went with a buteforce approach, removing each type in turn and reacting the result. Probably could be improved with some calls to count() so I don't check all 26.
+
