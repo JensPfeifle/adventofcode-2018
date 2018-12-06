@@ -229,3 +229,18 @@ and then simply replaced them in the polymer until its length remained constant.
 
 For part 2 I went with a buteforce approach, removing each type in turn and reacting the result. Probably could be improved with some calls to count() so I don't check all 26.
 
+Day 6
+======
+
+Already falling behind.. didn't manage to get up early enough to solve this one before class.
+I need to stop immediately thinking of numpy if I have a field. In this case, I initially had something like this:
+```python
+field = np.ndarray(max_x+2, max_y+2), dtype=str)
+for n in range(len(XY)):
+    field[XY[n,0],XY[n,1]] = names[n]
+```
+For some reason, however, the array would still be empty immediately after the loop?!
+
+Instead of a numpy array, I went with a dict, with the coordinate tuples as keys. For the areas (regions), a defaultdict of int (for the size of the area) worked well. To exclude the "infinite" areas at the edges, I increased the size of the grid by 1000 on each side, and then looked for the largest "realistic" number in the results. Not elegant, but it works.
+
+Unfortunately I didn't have time for part two today. Maybe I'll come back to it.
