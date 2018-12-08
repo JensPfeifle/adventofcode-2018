@@ -1,5 +1,10 @@
-Links
-====
+Advent of Code 2018
+===================
+
+Puzzles are found (here.)[https://adventofcode.com/2018/]
+
+Other useful links
+-------------------
 
 * (Scatterplot of results)[http://www.maurits.vdschee.nl/scatterplot/]
 * (AoC Subreddit)[https://www.reddit.com/r/adventofcode]
@@ -244,3 +249,48 @@ For some reason, however, the array would still be empty immediately after the l
 Instead of a numpy array, I went with a dict, with the coordinate tuples as keys. For the areas (regions), a defaultdict of int (for the size of the area) worked well. To exclude the "infinite" areas at the edges, I increased the size of the grid by 1000 on each side, and then looked for the largest "realistic" number in the results. Not elegant, but it works.
 
 Unfortunately I didn't have time for part two today. Maybe I'll come back to it.
+
+
+Day 7
+======
+
+Today's lesson: Don't forget that Python passes by reference.  I had built a nice worker pool and task queue, only to get a wrong answer because after part1, my prerequisites dictionary was empty. So technically, this was solved yesterday.. ;-)
+
+
+
+Day 8
+=======
+
+Trees are not my strong suit... But with some hints from /r/AdventOfCode, here goes:
+
+```
+2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2
+A----------------------------------
+    B----------- C-----------
+                     D-----
+```
+
+Of the input,  I know that the first two numbers are the header of the root node, consisting of `(nchildren, nmetadata)`. The  rest `data` consists of the children of the node, and the metadata of the node. The `data` will start with a header of the first child of the node, if it has one. Else, the data consits of the metadata. So, recursively, I need to parse the data of the parsed data, carrying the total (sum of metadata) and returning the data without that child. Once all children of a node have been parsed, the next `nmeta` pieces of data are metadata. So:
+```python
+def parse(data):
+    header = data[:2]
+    data = data[2:]
+ 
+    nchildren, nmeta = header
+
+    totals = 0
+    for n in range(nchildren):
+        total, data = parse(data)
+        totals += total
+
+    totals += sum(data[:nmeta]) # first part is meta
+    restdata = data[nmeta:] # restdata is everything after
+    return totals, restdata
+```
+
+For part 2, the scores of each node needed to be calculated based on the scores of its children, where the metadata entries selected the children to be scored. A node with no children has a score of sum(metadata). So with an if condition to check the number of children, and a sum of either the metadata or the selected child scores, this was relatively simple. See the source.
+
+This would have taken me days to solve if not for a great solution by /u/sciyoshi.
+
+Day 9
+=====
