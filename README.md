@@ -294,3 +294,54 @@ This would have taken me days to solve if not for a great solution by /u/sciyosh
 
 Day 9
 =====
+
+This problem involved a "circle" of values and indexing a certain number of values (counter-)clockwise in this circle. My initial idea to extend list into a circle seemed pretty cool at first:
+```python
+class Circle(list):
+    
+    def __getitem__(self, key):
+        try:
+            return super(Circle,self).__getitem__(key)
+        except IndexError:
+            key = key % len(self)
+            return super(Circle,self).__getitem__(key)
+            
+    def __setitem__(self, key, item):
+        try:
+            super(Circle,self).__setitem__(key, item)
+        except IndexError:
+            key = key % len(self)
+            super(Circle,self).__setitem__(key, item)
+
+    def insert(self, indx, obj):
+        if indx < len(self):
+            super(Circle,self).insert(indx, obj)
+        else:
+            indx = indx % len(self)
+            super(Circle,self).insert(indx, obj)
+
+ ```
+
+ However, I had imagined this to be much simpler. With the indexing also having to work counter-clockwise, this was going to be quite a few LOC that really weren't necessary. I ended up just using regular lists and adjusting the index by `idx % len(circle)`. See day09 for my solution to part1.
+ 
+ For part 2, however, where the number of marbles was increased 100x, my implementation with normal lists was much to inefficient. Runtime was 1hr+. /u/marcusandrews has a great solution which makes use of double-ended queues and their rotate() function. This runs in about 1.5 seconds instead of hours.
+
+ ```python
+# solution with deque by /u/marcusandrews
+def play_game_deque(max_players, last_marble):
+    scores = defaultdict(int)
+    circle = deque([0])
+
+    for marble in range(1, last_marble + 1):
+        if marble % 23 == 0:
+            circle.rotate(7)
+            scores[marble % max_players] += marble + circle.pop()
+            circle.rotate(-1)
+        else:
+            circle.rotate(-1)
+            circle.append(marble)
+
+    return max(scores.values()) if scores else 0
+ ```
+
+ I also learned about (blist)[https://pypi.org/project/blist/], which is a replacement for `list` which is more efficient (O(log n)) instead of O(n)
