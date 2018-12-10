@@ -345,3 +345,13 @@ def play_game_deque(max_players, last_marble):
  ```
 
  I also learned about (blist)[https://pypi.org/project/blist/], which is a replacement for `list` which is more efficient (O(log n)) instead of O(n)
+
+ Day 10
+ =======
+
+ Today the goal was to find the message spelled out by points moving on an xy canvas over time. Since letters tend to have vertical or horizontal lines, I tried to find a "maximum alignment" and plot only for that timestep:
+ ![](day10.png)
+
+ I probably also could have counted the number of points which overlap, but the result is the same.
+
+ Also, fastest part 2 ever: it asked for the timestep in which this happens, which I already had at that point.
