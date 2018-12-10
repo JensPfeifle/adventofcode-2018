@@ -73,3 +73,4 @@ y = y0 + tmessage*dy
 y = -y # flipit!
 plt.ylim(-140, -80)
 plt.scatter(x,y, s = 1)
+plt.show()
