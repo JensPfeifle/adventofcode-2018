@@ -355,3 +355,22 @@ def play_game_deque(max_players, last_marble):
  I probably also could have counted the number of points which overlap, but the result is the same.
 
  Also, fastest part 2 ever: it asked for the timestep in which this happens, which I already had at that point.
+
+
+ Day 11
+ ========
+
+ Today was nice and simple logic-wise - the instructions were pretty clear. the puzzle today was more in the performance. The goal: Find the largest sum of values of a subsquares on a square grid. For part 1 the size was fixed, so it was a simple convolution. For part 2, the subsquare could be anywhere from 1x1, to 300x300 (the size of the grid). Instead of recalculating the complete sum every time, I stored the previously calculated sums in a dict by (x,y,size). To compute the next larger square, I could look up the previous square with (x,y,size-1) and simply add the values on the edge. Like this (previous square: #, added values, *)
+ ```
+# # # # # # # *
+# # # # # # # *
+# # # # # # # *
+# # # # # # # *
+# # # # # # # *
+# # # # # # # *
+# # # # # # # *
+* * * * * * * *
+ ```
+
+I also tried speeding up the (naive) summing with numba. This helped (runtime ~1.25 minutes instead of multiple). The speedup seems to come more from the JIT compilation instead of real parallelization...but it works.
+The fastest solution was to combine both approaches by caching the results, and using numbda for the summing of the edge values. This runs through the whole computation in about 35 seconds.
