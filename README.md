@@ -374,3 +374,10 @@ def play_game_deque(max_players, last_marble):
 
 I also tried speeding up the (naive) summing with numba. This helped (runtime ~1.25 minutes instead of multiple). The speedup seems to come more from the JIT compilation instead of real parallelization...but it works.
 The fastest solution was to combine both approaches by caching the results, and using numbda for the summing of the edge values. This runs through the whole computation in about 35 seconds.
+
+
+Day 12
+========
+
+Cellular automata today. Part 1: evaluate for 20 generations. Part 2: evaluate for 50 Billion generations. Luckily, a pattern emerges after less than 200 generations and the answer can be extrapolated.
+I was a little lazy: my code won't work for all inputs because there are two hardcoded values: the number of generations until "steady-state" and the score increment for the extrapolation.
