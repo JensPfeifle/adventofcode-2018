@@ -109,7 +109,7 @@ Day 3
 ======
 
 Went a little more for speed today, as I have some real work that needs to be done...so neither pretty nor efficient.
-This was my initial approach for Part 2 was truly awful:
+This was my initial approach for Part 2 which was really quite awful:
 ```python
 def overlaps(c1: Tuple, c2: Tuple) -> bool:
     i1, x1, y1, w1, h1 = c1
@@ -381,3 +381,39 @@ Day 12
 
 Cellular automata today. Part 1: evaluate for 20 generations. Part 2: evaluate for 50 Billion generations. Luckily, a pattern emerges after less than 200 generations and the answer can be extrapolated.
 I was a little lazy: my code won't work for all inputs because there are two hardcoded values: the number of generations until "steady-state" and the score increment for the extrapolation.
+
+Day 13
+=======
+
+Todays puzzle is a track, like
+```
+/->-\        
+|   |  /----\
+| /-+--+-\  |
+| | |  | v  |
+\-+-/  \-+--/
+  \------/ 
+```
+just a little larger. The carets represent carts, which crash every now and then. The task was to determine the points at which they crash.
+I went overkill with the objects on this one and also added a visualization using array2gif, which turns numpy arrays into gif images.
+
+See day13.gif for the animated version.
+
+![Visualization](day13.png)
+
+For the next maze: a pretty cool trick from u/Shemetz 
+```
+Instead of storing x and y, store position = x + y * i (written y * 1j in python).
+
+The best part about this is that directions are just one of the numbers +1, +1j, -1, -1j and changing a direction is as simple as multiplying it by either +1j (clockwise turn) or -1j (counterclockwise turn).
+
+Note that since the Y axis is flipped (positive = down), you flip the imaginary part compared to what you'd do in usual mathematics (therefore, multiplying by +1j is CW ⭮, not CCW ⭯).
+```
+
+Full code [here](https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_13_solutions/ebolyq6/?st=jpojqq6z&sh=ccd2da05)
+
+
+
+Day 14
+=======
+Today wasn't as interesting, just follow the rules and make sure you're not off by one (as there are usually two, but sometimes on score being appended).
