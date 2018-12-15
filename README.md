@@ -417,3 +417,8 @@ Full code [here](https://www.reddit.com/r/adventofcode/comments/a5qd71/2018_day_
 Day 14
 =======
 Today wasn't as interesting, just follow the rules and make sure you're not off by one (as there are usually two, but sometimes on score being appended).
+
+Day 15
+======= 
+
+A little overwhelmed today, to be honest. Just simulation really, but Lots of rules to follow and things to check and decide on. I'll come back to this one when I have more time..
