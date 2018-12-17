@@ -422,3 +422,13 @@ Day 15
 ======= 
 
 A little overwhelmed today, to be honest. Just simulation really, but Lots of rules to follow and things to check and decide on. I'll come back to this one when I have more time..
+
+
+Day 16
+========
+To much stuff to do today :(
+
+
+Day 17
+=======
+Had to timebox this one. Looks like I'll be catching up on a few puzzles over Christmas break.
