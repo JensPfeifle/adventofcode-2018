@@ -431,4 +431,35 @@ To much stuff to do today :(
 
 Day 17
 =======
-Had to timebox this one. Looks like I'll be catching up on a few puzzles over Christmas break.
+Had to stop working on this one. Looks like I'll be catching up on a few puzzles over Christmas break.
+
+Day 19
+=======
+Today's puzzle was strongly based on Day 16, which I had to postponse. So... postponing this one to the break as well.
+
+Day 20
+========
+At least got around to day 20 today. The puzzle was essentially a maze which need to be traversed, given as a regex, e.g. `^ENWW|WNEEESSE(EE|N)$`. Essentially, we can just go through the regex, "moving" around the maze and counting steps. For every "room", i.e. location, store the number of steps it took to get there. Everytime we see `(` (start of new branch), store the current location and distance. Everytime we see `|` (end of branching path), restore it and continue from there.  `)` ends the branch, continue. To get the shortest route to each room,  in each iteration the number of steps to get to each location is compared to the last time this location was seen. If we found a shorter path, the length of the shortest path is updated.
+
+Something with stacks would probably also have worked. I also made something like a map, using the networkx module (see day20_aregularmap_networkx.py). The graph could also be used to get the shortest path using one of the nx.algorithms functions.
+
+![Visualization](day20_networkx.png)
+
+
+
+And this snippet using eval() to turn the regex into a sort of graph may also be useful: 
+```python
+inp = example3 = "^ENNWSWW(NEWS|)SSSEEN(WNSE|)EE(SWEN|)NNN$"
+print(inp)
+
+to_python = inp.replace("^", "['").replace("$","']").replace("(","',[['") \
+    .replace(")","']],'").replace("|","'],['")
+to_python = to_python.replace("[","(").replace("]",")")
+evaled_inp = eval(to_python)
+print(evaled_inp)
+
+```
+
+Day 21
+=======
+Another puzzle based on Day16/Day19, which I haven't even started :(
