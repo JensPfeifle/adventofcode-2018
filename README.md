@@ -463,3 +463,13 @@ print(evaled_inp)
 Day 21
 =======
 Another puzzle based on Day16/Day19, which I haven't even started :(
+
+Day 22
+======
+
+Just for fun: used Emacs today instead of VS Code. Took about 3 hours to set up for python3 with autocompletion, linting, etc. Once you get used to the keyboard chords its actually quite nice, although Code is "smarter" out of the box when it comes to things like indentation.
+
+Back to the task: 
+Today it was another pathfinding puzzle. Having found out about networkx recently, I used it to generate a graph with nodes as the possible valid positions, with the edge weights representing the time to reach said position from a previous node. Initially I tried to make it a bit complicated and calculate the tool changes and movements in one step. In the end I simply split it, adding an edge for a tool change with no movement and an edge for any possible movements without changing tools, in each iteration. 
+
+I wasted a lot of time trying to find a bug in my graph generation before I realized that my map was wrong. I compared my map with the example one, but apparently didn't realize that beyond the target point, my map was off as I was overwriting the target with the calculated value instead of setting it to be 0 as specified in the instructions.
