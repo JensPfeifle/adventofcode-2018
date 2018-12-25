@@ -473,3 +473,22 @@ Back to the task:
 Today it was another pathfinding puzzle. Having found out about networkx recently, I used it to generate a graph with nodes as the possible valid positions, with the edge weights representing the time to reach said position from a previous node. Initially I tried to make it a bit complicated and calculate the tool changes and movements in one step. In the end I simply split it, adding an edge for a tool change with no movement and an edge for any possible movements without changing tools, in each iteration. 
 
 I wasted a lot of time trying to find a bug in my graph generation before I realized that my map was wrong. I compared my map with the example one, but apparently didn't realize that beyond the target point, my map was off as I was overwriting the target with the calculated value instead of setting it to be 0 as specified in the instructions.
+
+
+Day 23
+=======
+Part 1 was relatively simple: given a set of nanobots (points in 3d space) and a range (radius) for each, find how many bots are in range of the bot with the largest range. I used scipy.spatial.KDTree to build a spatial search structure which can be queried for thing like the nearest neighbors or neighbors within a certain radius. So no problem there.
+
+
+
+In Part 2, the goal was to find the coordinates that are in range of the largest number of nanobots, and the actual required answer was the Manhattan distance between 0,0,0 and the point.
+I learned about [SMT](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories). But didn't understand much-... so for I tried a different approach:
+
+- find the largest set of nanobots whose ranges all overlap
+- starting with a "fake" bot at the origin, increase the range of that bot until it overlaps with all of the bots in the set.
+
+So I won't actually know the coordinates, but the distance from the origin, which should be enough so solve the puzzle.
+
+I this worked for the example input, but unfortunately the answer for my input (I got 201473101) was never correct :(
+
+Also, a constant radius in Manhattan distance in 2D takes the shape of a square rotated 45°... that took a while to notice, but wasn't the source of my incorrect answers..
