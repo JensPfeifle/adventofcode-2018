@@ -479,8 +479,6 @@ Day 23
 =======
 Part 1 was relatively simple: given a set of nanobots (points in 3d space) and a range (radius) for each, find how many bots are in range of the bot with the largest range. I used scipy.spatial.KDTree to build a spatial search structure which can be queried for thing like the nearest neighbors or neighbors within a certain radius. So no problem there.
 
-
-
 In Part 2, the goal was to find the coordinates that are in range of the largest number of nanobots, and the actual required answer was the Manhattan distance between 0,0,0 and the point.
 I learned about [SMT](https://en.wikipedia.org/wiki/Satisfiability_modulo_theories). But didn't understand much-... so for I tried a different approach:
 
@@ -492,3 +490,11 @@ So I won't actually know the coordinates, but the distance from the origin, whic
 I this worked for the example input, but unfortunately the answer for my input (I got 201473101) was never correct :(
 
 Also, a constant radius in Manhattan distance in 2D takes the shape of a square rotated 45°... that took a while to notice, but wasn't the source of my incorrect answers..
+
+Day 24
+======
+
+Another simulation task - a fight. I went with a small class to represent the fighting groups, and a list of tuples (attacker, defender) to represent the fighting. For part 2, the goal was to find a certain number "boost" that would allow the "good" team to win. My implementation works for the example, but again not on my input, stopping after a boost of only 20. Its just brute force, so no idea where the mistake could be. And my output matches exactly with the example...
+
+Day 25
+=======
